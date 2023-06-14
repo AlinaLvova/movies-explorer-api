@@ -1,0 +1,31 @@
+{
+  "name": "movie-api",
+  "version": "1.0.0",
+  "description": "backend for movie app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlinaLvova/movies-explorer-api.git"
+  },
+  "keywords": [
+    "api",
+    "express",
+    "node.js"
+  ],
+  "author": "Lvova Alina",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.22"
+  }
+}
