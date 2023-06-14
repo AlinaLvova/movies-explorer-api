@@ -73,4 +73,4 @@ const movieschema = new mongoose.Schema({
   versionKey: false, // Отключение опции versionKey
 });
 
-module.exports = mongoose.model('card', movieschema);
+module.exports = mongoose.model('Movie', movieschema);
