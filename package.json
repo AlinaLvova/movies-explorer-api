@@ -21,6 +21,8 @@
   "author": "Lvova Alina",
   "license": "ISC",
   "dependencies": {
+    "mongoose": "^7.2.4",
+    "validator": "^13.9.0"
   },
   "devDependencies": {
     "eslint": "^8.42.0",
