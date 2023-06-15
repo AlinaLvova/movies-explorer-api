@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const handleErrors = require('./middlewares/errors');
+const configureHelmet = require('./safety/configureHelmet');
 const { DB_ADDRESS } = require('./utils/config'); //change
 
 // подключаемся к серверу mongo
@@ -22,6 +23,8 @@ mongoose
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+configureHelmet(app);
 
 // теперь клиент имеет доступ только к публичным файлам
 app.use(express.static(path.join(__dirname, 'public')));
