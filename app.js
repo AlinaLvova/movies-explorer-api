@@ -3,7 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const { DB_ADDRESS } = require('./utils/config');
+const handleErrors = require('./middlewares/errors');
+const { DB_ADDRESS } = require('./utils/config'); //change
 
 // подключаемся к серверу mongo
 mongoose
@@ -31,6 +32,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(require('./routes/index'));
+
+app.use(handleErrors); // централизованный обработчик ошибок
 
 app.listen(PORT, () => {
 });
