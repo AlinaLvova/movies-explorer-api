@@ -1,10 +1,11 @@
 const express = require('express');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
-const { createUser } = require('../controllers/users');
+const { createUser, login } = require('../controllers/users');
 
 const router = express.Router();
 
+router.post('/signin', login);
 router.post('/signup', createUser);
 
 router.use('/users', usersRouter);

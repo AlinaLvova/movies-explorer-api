@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const { NODE_ENV, JWT_SECRET_KEY } = process.env;
+const config = require('../utils/config');
 
 const User = require('../models/user');
 const {
@@ -9,6 +13,7 @@ const {
 
 const BadRequestError = require('../errors/badRequestError');
 const ConflictError = require('../errors/badRequestError');
+const UnauthorizedError = require('../errors/badRequestError');
 
 // Формат данных пользователя
 const formatUserData = (user) => ({
@@ -62,6 +67,37 @@ module.exports.updateUser = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         return next(new BadRequestError('Переданы некорректные данные при обновлении пользователя.'));
+      }
+      return next(err);
+    });
+};
+
+module.exports.login = (req, res, next) => {
+  const { email, password } = req.body;
+  User.findOne({ email })
+    .select('+password')
+    .orFail()
+    .then((user) => bcrypt.compare(password, user.password).then((match) => {
+      if (match) {
+        const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET_KEY : config.JWT_SECRET_KEY);
+
+        // JWT через localstorage
+        //   expiresIn: '7d',
+        // });
+        // return res.send({ token });
+
+        // Устанавливаем httpOnly куку
+        return res.cookie('jwt', token, {
+          maxAge: 3600,
+          httpOnly: true,
+          sameSite: true,
+        }).send(formatUserData(user));
+      }
+      throw new UnauthorizedError('Переданы неверные email или пароль');
+    }))
+    .catch((err) => {
+      if (err instanceof mongoose.Error.DocumentNotFoundError) {
+        return next(new UnauthorizedError('Переданы неверные email или пароль'));
       }
       return next(err);
     });
