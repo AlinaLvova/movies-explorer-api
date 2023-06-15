@@ -48,7 +48,7 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.getMe = (req, res, next) => {
-  const userId = '648a23ebcf8216756f8be6a4'; // req.user._id;
+  const userId = req.user._id;
   User.findById(userId)
     .then((user) => res.status(SUCCESS_STATUS).send(formatUserData(user)))
     .catch((err) => next(err));
@@ -56,7 +56,7 @@ module.exports.getMe = (req, res, next) => {
 
 module.exports.updateUser = (req, res, next) => {
   const { name, email, password } = req.body;
-  const userId = '648a23ebcf8216756f8be6a4'; // req.user._id;
+  const userId = req.user._id;
   User.findByIdAndUpdate(userId, { name, email, password }, {
     new: true,
     runValidators: true,

@@ -44,7 +44,7 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovieById = (req, res, next) => {
-  const userId = '648a23ebcf8216756f8be6a4'; // req.user._id;
+  const userId = req.user._id;
   Movie.findById(req.params.movieId)
     .orFail()
     .then((movie) => {
