@@ -102,3 +102,11 @@ module.exports.login = (req, res, next) => {
       return next(err);
     });
 };
+
+module.exports.logout = (req, res) => {
+  // Удаление JWT из куков пользователя
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: true,
+  }).send({ message: 'Вы успешно вышли из системы' });
+};
