@@ -32,8 +32,8 @@ const formatMovie = (movie) => ({
 });
 
 module.exports.createMovie = (req, res, next) => {
-  const data = req.body;
-  Movie.create({ data, owner: req.user._id })
+  const data = { ...req.body, owner: req.user._id };
+  Movie.create(data)
     .then((movie) => res.status(CREATED_STATUS).send(formatMovie(movie)))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
@@ -51,7 +51,7 @@ module.exports.deleteMovieById = (req, res, next) => {
       if (movie.owner._id.toString() !== userId) {
         throw new ForbiddenError('Нет прав для удаления фильма с указанным _id');
       }
-      return Movie.deleteOne({ _id: req.params.MovieId })
+      return Movie.deleteOne({ _id: req.params.movieId })
         .then(() => {
           res.status(SUCCESS_STATUS).send({ message: 'Фильм удалён.' });
         });
