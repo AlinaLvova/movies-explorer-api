@@ -1,10 +1,10 @@
-const sessionSecretKey = process.env.SESSION_SECRET_KEY || 'defaultSecretKey';
+// const sessionSecretKey = process.env.SESSION_SECRET_KEY || 'defaultSecretKey';
 
 const helmet = require('helmet');
-const session = require('express-session');
-const cookieSession = require('cookie-session');
+// const session = require('express-session');
+// const cookieSession = require('cookie-session');
 
-const { NODE_ENV } = process.env;
+// const { NODE_ENV } = process.env;
 
 const configureHelmet = (app) => {
   // app.set('trust proxy', 1); // Доверять первому прокси-серверу

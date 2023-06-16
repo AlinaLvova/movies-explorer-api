@@ -5,7 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const handleErrors = require('./middlewares/errors');
 const configureHelmet = require('./safety/configureHelmet');
-const cors = require('./middlewares/cors');
+// const cors = require('./middlewares/cors');
 
 const { DB_ADDRESS } = process.env; //  change
 
@@ -34,7 +34,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-//app.use(cors);
+// app.use(cors);
 
 configureHelmet(app);
 
