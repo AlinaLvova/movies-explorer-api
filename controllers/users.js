@@ -88,7 +88,7 @@ module.exports.login = (req, res, next) => {
 
         // Устанавливаем httpOnly куку
         return res.cookie('jwt', token, {
-          maxAge: 3600,
+          maxAge: 3600000,
           httpOnly: true,
           sameSite: true,
         }).send(formatUserData(user));
