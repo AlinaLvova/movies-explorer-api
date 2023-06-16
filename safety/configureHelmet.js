@@ -7,18 +7,18 @@ const cookieSession = require('cookie-session');
 const { NODE_ENV } = process.env;
 
 const configureHelmet = (app) => {
-  app.set('trust proxy', 1); // Доверять первому прокси-серверу
+  // app.set('trust proxy', 1); // Доверять первому прокси-серверу
 
-  app.use(
-    session({
-      secret: sessionSecretKey, // Секретный ключ для шифрования сессии
-      name: 'sessionId', // Имя сессионной куки
-      resave: false,
-      saveUninitialized: false,
-    }),
-  );
+  // app.use(
+  //   session({
+  //     secret: sessionSecretKey, // Секретный ключ для шифрования сессии
+  //     name: 'sessionId', // Имя сессионной куки
+  //     resave: false,
+  //     saveUninitialized: false,
+  //   }),
+  // );
 
-  const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 час
+  // const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 час
 
   // app.use(
   //   cookieSession({
