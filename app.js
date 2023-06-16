@@ -5,7 +5,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const handleErrors = require('./middlewares/errors');
 const configureHelmet = require('./safety/configureHelmet');
-const { DB_ADDRESS } = process.env; //change
+const cors = require('./middlewares/cors');
+
+const { DB_ADDRESS } = process.env; //  change
 
 // подключаемся к серверу mongo
 mongoose
@@ -31,6 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 app.use(cookieParser());
+
+app.use(cors);
 
 configureHelmet(app);
 
