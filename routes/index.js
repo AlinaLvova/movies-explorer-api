@@ -1,5 +1,5 @@
 const express = require('express');
-const handleErrorsByCelebrate = require('celebrate');
+const { errors } = require('celebrate');
 
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
@@ -27,6 +27,6 @@ router.use((req, res, next) => next(new NotFoundError('Маршрут не на�
 
 router.use(errorLogger); // логгер ошибок
 
-router.use(handleErrorsByCelebrate()); // обработчик ошибок celebrate
+router.use(errors()); // обработчик ошибок celebrate
 
 module.exports = router;
