@@ -5,14 +5,10 @@ const movieschema = new mongoose.Schema({
   country: {
     type: String,
     required: true,
-    minlength: 1,
-    maxlength: 30,
   },
   director: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
   duration: {
     required: true,
@@ -57,7 +53,7 @@ const movieschema = new mongoose.Schema({
   },
   movieId: {
     type: Number,
-    required: false,
+    required: true,
     // true - id фильма, который содержится в ответе сервиса MoviesExplorer.
     // На данный этап не знаем.
   },
