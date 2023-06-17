@@ -37,7 +37,7 @@ module.exports.createMovie = (req, res, next) => {
     .then((movie) => res.status(CREATED_STATUS).send(formatMovie(movie)))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        return next(new BadRequestError('Переданы некорректные данные при создании карточки.'));
+        return next(new BadRequestError('Переданы некорректные данные при создании фильма.'));
       }
       return next(err);
     });
@@ -58,7 +58,7 @@ module.exports.deleteMovieById = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError) {
-        return next(new BadRequestError('Карточка с указанным _id не найдена.'));
+        return next(new BadRequestError('Передан неверный формат _id фильма.'));
       }
       if (err instanceof mongoose.Error.DocumentNotFoundError) {
         return next(new NotFoundError('Передан несуществующий _id фильма.'));
