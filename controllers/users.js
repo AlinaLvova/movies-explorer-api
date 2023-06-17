@@ -55,9 +55,9 @@ module.exports.getMe = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email } = req.body;
   const userId = req.user._id;
-  User.findByIdAndUpdate(userId, { name, email, password }, {
+  User.findByIdAndUpdate(userId, { name, email }, {
     new: true,
     runValidators: true,
   })

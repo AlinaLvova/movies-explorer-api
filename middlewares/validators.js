@@ -12,9 +12,8 @@ const createUserValidator = celebrate({
 // Валидация данных пользователя при обновлении
 const updateUserValidator = celebrate({
   [Segments.BODY]: {
-    name: Joi.string().min(2).max(30),
-    email: Joi.string().email(),
-    password: Joi.string().min(2),
+    name: Joi.string().min(2).max(30).required(true),
+    email: Joi.string().email().required(true),
   },
 });
 
