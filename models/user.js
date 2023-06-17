@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     type: String,
     select: false,
-    minlength: 2,
   },
 }, {
   versionKey: false, // Отключение опции versionKey
