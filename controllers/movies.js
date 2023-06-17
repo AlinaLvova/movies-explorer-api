@@ -67,8 +67,8 @@ module.exports.deleteMovieById = (req, res, next) => {
     });
 };
 
-module.exports.getMovies = (req, res, next) => {
-  Movie.find({})
+module.exports.getUserMovies = (req, res, next) => {
+  Movie.find({ owner: req.user._id })
     .populate(populateOptions)
     .then((Movies) => res.status(SUCCESS_STATUS).send(Movies.map(formatMovie)))
     .catch((err) => next(err));

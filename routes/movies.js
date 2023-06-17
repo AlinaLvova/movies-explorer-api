@@ -1,10 +1,10 @@
 const router = require('express').Router();
 
 const {
-  deleteMovieById, getMovies, createMovie,
+  deleteMovieById, getUserMovies, createMovie,
 } = require('../controllers/movies');
 
-router.get('/', getMovies);
+router.get('/', getUserMovies);
 router.post('/', createMovie);
 router.delete('/:movieId', deleteMovieById);
 
