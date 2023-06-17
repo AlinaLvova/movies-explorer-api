@@ -13,7 +13,6 @@ const router = express.Router();
 
 router.post('/signin', loginValidator, login);
 router.post('/signup', createUserValidator, createUser);
-router.post('/signout', logout);
 
 router.use(requestLogger); // логгер запросов
 
@@ -21,6 +20,7 @@ router.use(auth);
 
 router.use('/users', usersRouter);
 router.use('/movies', moviesRouter);
+router.post('/signout', logout);
 
 // Middleware для обработки несуществующих путей
 router.use((req, res, next) => next(new NotFoundError('Маршрут не найден')));
