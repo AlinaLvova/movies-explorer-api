@@ -65,6 +65,9 @@ module.exports.updateUser = (req, res, next) => {
       res.status(SUCCESS_STATUS).send(formatUserData(user));
     })
     .catch((err) => {
+      if (err.code === 11000) {
+        return next(new BadRequestError('Email уже занят. Пожалуйста, выберите другой.'));
+      }
       if (err instanceof mongoose.Error.ValidationError) {
         return next(new BadRequestError('Переданы некорректные данные при обновлении пользователя.'));
       }
