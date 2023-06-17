@@ -12,8 +12,8 @@ const {
 } = require('../utils/constants');
 
 const BadRequestError = require('../errors/badRequestError');
-const ConflictError = require('../errors/badRequestError');
-const UnauthorizedError = require('../errors/badRequestError');
+const ConflictError = require('../errors/conflictError');
+const UnauthorizedError = require('../errors/unauthorizedError');
 
 // Формат данных пользователя
 const formatUserData = (user) => ({
