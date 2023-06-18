@@ -71,7 +71,7 @@ module.exports.updateUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        return next(new BadRequestError(CONFLICT_EMAIL));
+        return next(new ConflictError(CONFLICT_EMAIL));
       }
       if (err instanceof mongoose.Error.ValidationError) {
         return next(new BadRequestError(INVALID_USER_UPDATE_DATA));
