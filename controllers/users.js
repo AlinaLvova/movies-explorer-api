@@ -101,7 +101,7 @@ module.exports.login = (req, res, next) => {
           sameSite: true,
         }).send(formatUserData(user));
       }
-      throw new UnauthorizedError('Переданы неверные email или пароль');
+      throw new UnauthorizedError(UNAUTHORIZED);
     }))
     .catch((err) => {
       if (err instanceof mongoose.Error.DocumentNotFoundError) {

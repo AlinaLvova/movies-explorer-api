@@ -1,8 +1,6 @@
-const { AUTHORIZATION_REQUIRED } = require('../utils/constants');
-
 module.exports = class UnauthorizedError extends Error {
-  constructor() {
-    super(AUTHORIZATION_REQUIRED);
+  constructor(message) {
+    super(message);
     this.statusCode = 401;
   }
 };
