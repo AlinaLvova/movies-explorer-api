@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const handleErrors = require('./middlewares/errors');
 const configureHelmet = require('./safety/configureHelmet');
+const rateLimiter = require('./safety/rateLimiter');
 // const cors = require('./middlewares/cors');
 const { DB_ADDRESS } = require('./utils/config'); //  change
 
@@ -20,6 +21,7 @@ mongoose
   .catch((error) => {
     console.log('Ошибка при подключении к базе данных:', error.name);
   });
+// удалить log после ревью
 
 const { PORT = 3000 } = process.env;
 
@@ -36,6 +38,8 @@ app.use(cookieParser());
 // app.use(cors);
 
 configureHelmet(app);
+
+app.use(rateLimiter);
 
 app.use(require('./routes/index'));
 
