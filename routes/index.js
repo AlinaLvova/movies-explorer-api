@@ -8,6 +8,7 @@ const { createUser, login, logout } = require('../controllers/users');
 const { loginValidator, createUserValidator } = require('../middlewares/validators');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
 const auth = require('../middlewares/auth');
+const rateLimiter = require('../safety/rateLimiter');
 const NotFoundError = require('../errors/notFoundError');
 
 const router = express.Router();
@@ -15,6 +16,8 @@ const router = express.Router();
 const protectedRoutes = ['/users', '/movies', '/signout'];
 
 router.use(requestLogger); // логгер запросов
+
+router.use(rateLimiter);
 
 router.use((req, res, next) => {
   if (protectedRoutes.some((route) => req.path.startsWith(route))) {
