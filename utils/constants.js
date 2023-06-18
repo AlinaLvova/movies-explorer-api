@@ -21,6 +21,7 @@ const AUTHORIZATION_REQUIRED = 'Необходима авторизация';
 const ROUTE_NOT_FOUND = 'Маршрут не найден';
 const INVALID_ADDRESS = 'Некорректный адрес';
 const INVALID_EMAIL = 'Некорректный e-mail';
+const RATE_LIMIT_EXCEEDED = 'Превышен лимит запросов. Попробуйте позже.';
 
 module.exports = {
   INTERNAL_SERVER_ERROR,
@@ -41,4 +42,5 @@ module.exports = {
   ROUTE_NOT_FOUND,
   INVALID_ADDRESS,
   INVALID_EMAIL,
+  RATE_LIMIT_EXCEEDED,
 };
