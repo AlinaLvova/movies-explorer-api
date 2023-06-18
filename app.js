@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const handleErrors = require('./middlewares/errors');
 const configureHelmet = require('./safety/configureHelmet');
 // const cors = require('./middlewares/cors');
-const { DB_ADDRESS } = require('./utils/config'); //  change
+const { DB_ADDRESS } = require('./utils/config');
 
 // подключаемся к серверу mongo
 mongoose

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+const { INVALID_ADDRESS } = require('../utils/constants');
+
 const movieschema = new mongoose.Schema({
   country: {
     type: String,
@@ -27,7 +29,7 @@ const movieschema = new mongoose.Schema({
     type: String,
     validate: {
       validator: (URL) => validator.isURL(URL),
-      message: 'Некорректный адрес',
+      message: INVALID_ADDRESS,
     },
   },
   trailerLink: {
@@ -35,7 +37,7 @@ const movieschema = new mongoose.Schema({
     type: String,
     validate: {
       validator: (URL) => validator.isURL(URL),
-      message: 'Некорректный адрес',
+      message: INVALID_ADDRESS,
     },
   },
   thumbnail: {
@@ -43,7 +45,7 @@ const movieschema = new mongoose.Schema({
     type: String,
     validate: {
       validator: (URL) => validator.isURL(URL),
-      message: 'Некорректный адрес',
+      message: INVALID_ADDRESS,
     },
   },
   owner: {

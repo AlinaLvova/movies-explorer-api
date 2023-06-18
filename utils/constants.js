@@ -15,9 +15,12 @@ const CONFLICT_EMAIL = 'Пользователь с таким email уже за
 const UNAUTHORIZED = 'Переданы неверные email или пароль';
 const LOGOUT_SUCCESS = 'Вы успешно вышли из системы';
 const INVALID_USER_UPDATE_DATA = 'Переданы некорректные данные при обновлении пользователя.';
+
 const DEFAULT_ERROR_MESSAGE = 'Ошибка по умолчанию.';
 const AUTHORIZATION_REQUIRED = 'Необходима авторизация';
 const ROUTE_NOT_FOUND = 'Маршрут не найден';
+const INVALID_ADDRESS = 'Некорректный адрес';
+const INVALID_EMAIL = 'Некорректный e-mail';
 
 module.exports = {
   INTERNAL_SERVER_ERROR,
@@ -36,4 +39,6 @@ module.exports = {
   DEFAULT_ERROR_MESSAGE,
   AUTHORIZATION_REQUIRED,
   ROUTE_NOT_FOUND,
+  INVALID_ADDRESS,
+  INVALID_EMAIL,
 };
