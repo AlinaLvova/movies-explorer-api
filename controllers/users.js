@@ -9,6 +9,11 @@ const User = require('../models/user');
 const {
   SUCCESS_STATUS,
   CREATED_STATUS,
+  INVALID_USER_DATA,
+  CONFLICT_EMAIL,
+  UNAUTHORIZED,
+  LOGOUT_SUCCESS,
+  INVALID_USER_UPDATE_DATA,
 } = require('../utils/constants');
 
 const BadRequestError = require('../errors/badRequestError');
@@ -36,10 +41,10 @@ module.exports.createUser = (req, res, next) => {
       .then((user) => res.status(CREATED_STATUS).send(formatUserData(user)))
       .catch((err) => {
         if (err instanceof mongoose.Error.ValidationError) {
-          return next(new BadRequestError('Переданы некорректные данные при создании пользователя.'));
+          return next(new BadRequestError(INVALID_USER_DATA));
         }
         if (err.code === 11000) {
-          return next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
+          return next(new ConflictError(CONFLICT_EMAIL));
         }
         return next(err);
       })
@@ -66,10 +71,10 @@ module.exports.updateUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.code === 11000) {
-        return next(new BadRequestError('Email уже занят. Пожалуйста, выберите другой.'));
+        return next(new BadRequestError(CONFLICT_EMAIL));
       }
       if (err instanceof mongoose.Error.ValidationError) {
-        return next(new BadRequestError('Переданы некорректные данные при обновлении пользователя.'));
+        return next(new BadRequestError(INVALID_USER_UPDATE_DATA));
       }
       return next(err);
     });
@@ -100,7 +105,7 @@ module.exports.login = (req, res, next) => {
     }))
     .catch((err) => {
       if (err instanceof mongoose.Error.DocumentNotFoundError) {
-        return next(new UnauthorizedError('Переданы неверные email или пароль'));
+        return next(new UnauthorizedError(UNAUTHORIZED));
       }
       return next(err);
     });
@@ -111,5 +116,5 @@ module.exports.logout = (req, res) => {
   res.clearCookie('jwt', {
     httpOnly: true,
     sameSite: true,
-  }).send({ message: 'Вы успешно вышли из системы' });
+  }).send({ message: LOGOUT_SUCCESS });
 };

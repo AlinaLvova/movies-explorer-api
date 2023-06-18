@@ -3,6 +3,11 @@ const Movie = require('../models/movie');
 const {
   SUCCESS_STATUS,
   CREATED_STATUS,
+  INVALID_MOVIE_DATA,
+  INVALID_MOVIE_ID,
+  DELETE_MOVIE_FORBIDDEN,
+  MOVIE_NOT_FOUND,
+  MOVIE_DELETED,
 } = require('../utils/constants');
 const BadRequestError = require('../errors/badRequestError');
 const NotFoundError = require('../errors/notFoundError');
@@ -37,7 +42,7 @@ module.exports.createMovie = (req, res, next) => {
     .then((movie) => res.status(CREATED_STATUS).send(formatMovie(movie)))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        return next(new BadRequestError('Переданы некорректные данные при создании фильма.'));
+        return next(new BadRequestError(INVALID_MOVIE_DATA));
       }
       return next(err);
     });
@@ -49,19 +54,19 @@ module.exports.deleteMovieById = (req, res, next) => {
     .orFail()
     .then((movie) => {
       if (movie.owner._id.toString() !== userId) {
-        throw new ForbiddenError('Нет прав для удаления фильма с указанным _id');
+        throw new ForbiddenError(DELETE_MOVIE_FORBIDDEN);
       }
       return Movie.deleteOne({ _id: req.params.movieId })
         .then(() => {
-          res.status(SUCCESS_STATUS).send({ message: 'Фильм удалён.' });
+          res.status(SUCCESS_STATUS).send({ message: MOVIE_DELETED });
         });
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError) {
-        return next(new BadRequestError('Передан неверный формат _id фильма.'));
+        return next(new BadRequestError(INVALID_MOVIE_ID));
       }
       if (err instanceof mongoose.Error.DocumentNotFoundError) {
-        return next(new NotFoundError('Передан несуществующий _id фильма.'));
+        return next(new NotFoundError(MOVIE_NOT_FOUND));
       }
       return next(err);
     });
@@ -70,6 +75,6 @@ module.exports.deleteMovieById = (req, res, next) => {
 module.exports.getUserMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
     .populate(populateOptions)
-    .then((Movies) => res.status(SUCCESS_STATUS).send(Movies.map(formatMovie)))
+    .then((movies) => res.status(SUCCESS_STATUS).send(movies.map(formatMovie)))
     .catch((err) => next(err));
 };

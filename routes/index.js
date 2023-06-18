@@ -1,6 +1,6 @@
 const express = require('express');
 const { errors } = require('celebrate');
-const morgan = require('morgan');
+const { ROUTE_NOT_FOUND } = require('../utils/constants');
 
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
@@ -32,7 +32,7 @@ router.use('/users', usersRouter);
 router.use('/movies', moviesRouter);
 
 // Middleware для обработки несуществующих путей
-router.use((req, res, next) => next(new NotFoundError('Маршрут не найден')));
+router.use((req, res, next) => next(new NotFoundError(ROUTE_NOT_FOUND)));
 
 router.use(errorLogger); // логгер ошибок
 
