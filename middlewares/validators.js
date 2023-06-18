@@ -5,7 +5,7 @@ const createUserValidator = celebrate({
   [Segments.BODY]: {
     name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(2),
+    password: Joi.string().required(),
   },
 });
 
@@ -28,7 +28,7 @@ const userIdValidator = celebrate({
 const loginValidator = celebrate({
   [Segments.BODY]: {
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(2),
+    password: Joi.string().required(),
   },
 });
 
