@@ -87,19 +87,20 @@ module.exports.login = (req, res, next) => {
     .orFail()
     .then((user) => bcrypt.compare(password, user.password).then((match) => {
       if (match) {
-        const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET_KEY : config.JWT_SECRET_KEY_DEFAULT);
 
-        // JWT через localstorage
-        //   expiresIn: '7d',
-        // });
-        // return res.send({ token });
+        // const token = jwt.sign({ _id: user._id },
+        // NODE_ENV === 'production' ? JWT_SECRET_KEY : config.JWT_SECRET_KEY_DEFAULT);
+
+        const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET_KEY : config.JWT_SECRET_KEY_DEFAULT, { expiresIn: '7d' });
+
+        return res.send({ token });
 
         // Устанавливаем httpOnly куку
-        return res.cookie('jwt', token, {
-          maxAge: 3600000,
-          httpOnly: true,
-          sameSite: true,
-        }).send(formatUserData(user));
+        // return res.cookie('jwt', token, {
+        //   maxAge: 3600000,
+        //   httpOnly: true,
+        //   sameSite: true,
+        // }).send(formatUserData(user));
       }
       throw new UnauthorizedError(UNAUTHORIZED);
     }))
