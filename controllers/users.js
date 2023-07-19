@@ -40,11 +40,11 @@ module.exports.createUser = (req, res, next) => {
     })
       .then((user) => res.status(CREATED_STATUS).send(formatUserData(user)))
       .catch((err) => {
-        if (err instanceof mongoose.Error.ValidationError) {
-          return next(new BadRequestError(INVALID_USER_DATA));
-        }
         if (err.code === 11000) {
           return next(new ConflictError(CONFLICT_EMAIL));
+        }
+        if (err.name === 'ValidationError') {
+          return next(new BadRequestError(INVALID_USER_DATA));
         }
         return next(err);
       })
@@ -73,7 +73,7 @@ module.exports.updateUser = (req, res, next) => {
       if (err.code === 11000) {
         return next(new ConflictError(CONFLICT_EMAIL));
       }
-      if (err instanceof mongoose.Error.ValidationError) {
+      if (err.name === 'ValidationError') {
         return next(new BadRequestError(INVALID_USER_UPDATE_DATA));
       }
       return next(err);
