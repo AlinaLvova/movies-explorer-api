@@ -4,7 +4,7 @@ const { celebrate, Joi, Segments } = require('celebrate');
 const createUserValidator = celebrate({
   [Segments.BODY]: {
     name: Joi.string().required().min(2).max(30),
-    email: Joi.string().required().email(),
+    email: Joi.string().required().regex(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
     password: Joi.string().required(),
   },
 });
