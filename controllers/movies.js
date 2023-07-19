@@ -41,7 +41,7 @@ module.exports.createMovie = (req, res, next) => {
   Movie.create(data)
     .then((movie) => res.status(CREATED_STATUS).send(formatMovie(movie)))
     .catch((err) => {
-      if (err instanceof mongoose.Error.ValidationError) {
+      if (err.name === 'ValidationError') {
         return next(new BadRequestError(INVALID_MOVIE_DATA));
       }
       return next(err);
