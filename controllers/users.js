@@ -37,7 +37,7 @@ module.exports.createUser = (req, res, next) => {
   bcrypt.hash(password, 10).then((hash) => {
     User.create({
       name, email, password: hash,
-    })
+    }, { new: true, runValidators: true })
       .then((user) => res.status(CREATED_STATUS).send(formatUserData(user)))
       .catch((err) => {
         if (err instanceof mongoose.Error.ValidationError) {
