@@ -27,7 +27,7 @@ const userIdValidator = celebrate({
 // Валидация данных для входа в систему
 const loginValidator = celebrate({
   [Segments.BODY]: {
-    email: Joi.string().required().email(),
+    email: Joi.string().required().regex(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
     password: Joi.string().required(),
   },
 });
