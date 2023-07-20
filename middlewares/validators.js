@@ -13,7 +13,7 @@ const createUserValidator = celebrate({
 const updateUserValidator = celebrate({
   [Segments.BODY]: {
     name: Joi.string().min(2).max(30).required(),
-    email: Joi.string().email().required(),
+    email: Joi.string().required().regex(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
   },
 });
 
