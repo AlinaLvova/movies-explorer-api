@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const { NODE_ENV, JWT_SECRET_KEY } = process.env;
 const config = require('../utils/config');
+const NotFoundError = require('../errors/notFoundError');
 
 const User = require('../models/user');
 const {
@@ -88,8 +89,7 @@ module.exports.login = (req, res, next) => {
     .orFail()
     .then((user) => bcrypt.compare(password, user.password).then((match) => {
       if (match) {
-
-        // const token = jwt.sign({ _id: user._id },
+      // const token = jwt.sign({ _id: user._id },
         // NODE_ENV === 'production' ? JWT_SECRET_KEY : config.JWT_SECRET_KEY_DEFAULT);
 
         const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET_KEY : config.JWT_SECRET_KEY_DEFAULT, { expiresIn: '7d' });
