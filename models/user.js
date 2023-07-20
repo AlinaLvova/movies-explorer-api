@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     type: String,
     validate: {
-      validator: (email) => validator.isEmail(email),
+      validator: (email) => (email) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
       message: INVALID_EMAIL,
     },
     unique: true,

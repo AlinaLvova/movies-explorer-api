@@ -8,11 +8,19 @@ const UnauthorizedError = require('../errors/unauthorizedError');
 const { NODE_ENV, JWT_SECRET_KEY } = process.env;
 
 module.exports = (req, res, next) => {
-  const token = req.cookies.jwt;
+  //const token = req.cookies.jwt;
+  const { authorization } = req.headers;
 
-  if (!token) {
+
+  // if (!token) {
+  //   return next(new UnauthorizedError(AUTHORIZATION_REQUIRED));
+  // }
+  
+  if (!authorization || !authorization.startsWith('Bearer ')) {
     return next(new UnauthorizedError(AUTHORIZATION_REQUIRED));
   }
+
+  const token = authorization.replace('Bearer ', '');
 
   let payload;
 
