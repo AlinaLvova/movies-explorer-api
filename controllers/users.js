@@ -66,6 +66,7 @@ module.exports.updateUser = (req, res, next) => {
     new: true,
     runValidators: true,
   })
+    .orFail(new NotFoundError('Пользователь с данным id не найден'))
     .then((user) => {
       res.status(SUCCESS_STATUS).send(formatUserData(user));
     })
