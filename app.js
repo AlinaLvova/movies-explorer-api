@@ -2,10 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const handleErrors = require('./middlewares/errors');
 const configureHelmet = require('./safety/configureHelmet');
-const cors = require('./middlewares/cors');
+//const cors = require('./middlewares/cors');
 const { DB_ADDRESS } = require('./utils/config');
 
 // подключаемся к серверу mongo
@@ -26,6 +27,8 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
+app.use(cors);
+
 // теперь клиент имеет доступ только к публичным файлам
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -33,8 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 app.use(cookieParser());
-
-app.use(cors);
 
 configureHelmet(app);
 
