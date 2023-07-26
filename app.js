@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const cors = require('cors');
+const cors = require('./middlewares/cors');
 const cookieParser = require('cookie-parser');
 const handleErrors = require('./middlewares/errors');
 const configureHelmet = require('./safety/configureHelmet');
@@ -27,7 +27,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.use(cors({ origin: 'https://movie.nomoredomains.rocks' }));
+app.use(cors);
 
 // теперь клиент имеет доступ только к публичным файлам
 app.use(express.static(path.join(__dirname, 'public')));
