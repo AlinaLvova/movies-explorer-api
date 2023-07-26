@@ -27,7 +27,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-app.use(cors);
+app.use(cors());
 
 // теперь клиент имеет доступ только к публичным файлам
 app.use(express.static(path.join(__dirname, 'public')));
